@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.persistence.*;
 
 @Entity
-public class UserOrder {
+public class UserMeal {
     private String account;
     private String password;
     private int level;
@@ -19,10 +19,10 @@ public class UserOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public UserOrder() {
+    public UserMeal() {
     }
 
-    public UserOrder(String account, String password, int level, int age, String name, int imageIndex, String imageUrl) {
+    public UserMeal(String account, String password, int level, int age, String name, int imageIndex, String imageUrl) {
         this.account = account;
         this.password = password;
         this.level = level;
@@ -32,7 +32,7 @@ public class UserOrder {
         this.imageUrl = imageUrl;
     }
 
-    public UserOrder(@NotNull String account, @NotNull String password, @Nullable Integer level, @Nullable Integer age, @Nullable String name, @Nullable Integer imageIndex, @Nullable String imageUrl) {
+    public UserMeal(@NotNull String account, @NotNull String password, @Nullable Integer level, @Nullable Integer age, @Nullable String name, @Nullable Integer imageIndex, @Nullable String imageUrl) {
         this.account = account;
         this.password = password;
         if (level != null) {

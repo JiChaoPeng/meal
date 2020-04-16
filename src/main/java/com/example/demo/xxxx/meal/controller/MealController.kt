@@ -63,7 +63,7 @@ class MealController {
             if (suffixName != ".jpg" && suffixName == ".png") {
                 return ResultModel(ERROR, " 请选择图片 ！！！")
             }
-            val filePath = "/pic/food/"// 上传后的路径
+            val filePath = "/pic/meal/"// 上传后的路径
             fileName = UUID.randomUUID().toString() + suffixName // 新文件名
             val dest = File(filePath + fileName)
             try {
