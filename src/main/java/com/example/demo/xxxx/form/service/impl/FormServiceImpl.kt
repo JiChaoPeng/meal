@@ -9,6 +9,7 @@ import com.example.demo.xxxx.constant.SUCCEED
 import com.example.demo.xxxx.form.bean.FormBean
 import com.example.demo.xxxx.form.dao.FormDao
 import com.example.demo.xxxx.form.service.FormService
+import org.springframework.data.domain.Sort
 
 @Service("formService")
 class FormServiceImpl : FormService {
@@ -47,7 +48,9 @@ class FormServiceImpl : FormService {
     }
 
     override fun findAllBean(): List<FormBean>? {
-        return formDao.findAll()
+        val sort = Sort.by(Sort.Direction.ASC, "time")
+        return formDao.findAll(sort)
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.demo.xxxx.service.impl
 
 import com.example.demo.xxxx.bean.FoodBean
 import com.example.demo.xxxx.bean.ResultBean
+import com.example.demo.xxxx.bean.ResultModel
 import com.example.demo.xxxx.constant.ERROR
 import com.example.demo.xxxx.constant.SUCCEED
 import com.example.demo.xxxx.dao.FoodDao
@@ -14,6 +15,16 @@ class FoodServiceImpl : FoodService {
 
     @Resource
     lateinit var foodDao: FoodDao
+
+    override fun refreshFood(food: FoodBean): ResultModel? {
+        val findById = foodDao.findById(food.id)
+        return if (findById != null) {
+            foodDao.save(food)
+            ResultModel(SUCCEED, null)
+        } else {
+            ResultModel(ERROR, null)
+        }
+    }
 
     override fun addFood(food: FoodBean): ResultBean<FoodBean> {
         return try {

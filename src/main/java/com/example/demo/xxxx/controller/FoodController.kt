@@ -28,7 +28,7 @@ class FoodController {
     internal var foodService: FoodServiceImpl? = null
 
     @RequestMapping("/android/v1/food/add",
-            params = ["name", "content",  "price", "address", "imageUrl", "roomId"],
+            params = ["name", "content", "price", "address", "imageUrl", "roomId"],
             method = [RequestMethod.POST])
     fun addFood(@RequestParam("name") name: String,
                 @RequestParam("content") content: String,
@@ -37,7 +37,7 @@ class FoodController {
                 @RequestParam("imageUrl") imageUrl: String?,
                 @RequestParam("roomId") roomId: Int): ResultBean<FoodBean>? {
         return foodService?.addFood(FoodBean(name, content
-                , price, imageUrl,address,  roomId))
+                , price, imageUrl, address, roomId))
 
     }
 
@@ -45,26 +45,42 @@ class FoodController {
             params = ["roomId"],
             method = [RequestMethod.POST])
     fun findAllFood(@RequestParam("roomId") roomId: String): ResultBean<FoodListBean>? {
-        return ResultBean( SUCCEED, null, FoodListBean(foodService?.findAllBeanByRoomId(roomId)))
+        return ResultBean(SUCCEED, null, FoodListBean(foodService?.findAllBeanByRoomId(roomId)))
     }
 
 
     @RequestMapping("/android/v1/food/all",
             method = [RequestMethod.POST])
     fun findAllFood(): ResultBean<FoodListBean>? {
-        return ResultBean( SUCCEED, null, FoodListBean(foodService?.findAllBean()))
+        return ResultBean(SUCCEED, null, FoodListBean(foodService?.findAllBean()))
+    }
+
+    @RequestMapping("/android/v1/food/refresh",
+            params = ["id", "name", "content", "price", "address", "imageUrl", "roomId"]
+            , method = [RequestMethod.POST])
+    fun refreshFood(@RequestParam("id") id: Int,
+                    @RequestParam("name") name: String,
+                    @RequestParam("content") content: String,
+                    @RequestParam("price") price: Int = 0,
+                    @RequestParam("address") address: String? = null,
+                    @RequestParam("imageUrl") imageUrl: String?,
+                    @RequestParam("roomId") roomId: Int): ResultModel? {
+        val food = FoodBean(name, content
+                , price, imageUrl, address, roomId)
+        food.id = id
+        return foodService?.refreshFood(food)
     }
 
     @RequestMapping(value = ["/android/v1/food/Upload"])
     @Throws(Exception::class)
     fun uploadImage(@RequestParam(value = "file", required = false, defaultValue = "") file: MultipartFile): ResultModel {
         if (file.isEmpty) {
-            return ResultModel( ERROR, "图片为空")
+            return ResultModel(ERROR, "图片为空")
         }
         var fileName = file.originalFilename  // 文件名
         val suffixName = fileName?.substring(fileName.lastIndexOf("."))  // 后缀名
         if (suffixName != ".jpg" && suffixName != ".png") {
-            return ResultModel( ERROR, " 请选择图片 ！！！")
+            return ResultModel(ERROR, " 请选择图片 ！！！")
         }
         val filePath = "/pic/food/" // 上传后的路径
         fileName = UUID.randomUUID().toString() + suffixName // 新文件名
@@ -79,7 +95,7 @@ class FoodController {
         }
 
         val filename = "http://39.99.210.2/pic/food/$fileName"
-        return ResultModel( SUCCEED, filename)
+        return ResultModel(SUCCEED, filename)
     }
 
 

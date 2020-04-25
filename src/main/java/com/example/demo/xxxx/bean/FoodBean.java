@@ -15,7 +15,7 @@ public class FoodBean {
     private int room_id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int food_id;
+    private int id;
 
     public FoodBean() {
 
@@ -78,11 +78,11 @@ public class FoodBean {
         this.address = address;
     }
 
-    public int getFood_id() {
-        return food_id;
+    public int getId() {
+        return id;
     }
 
-    public void setFood_id(int food_id) {
-        this.food_id = food_id;
+    public void setId(int id) {
+        this.id = id;
     }
 }
