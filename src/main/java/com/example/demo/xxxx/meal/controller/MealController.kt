@@ -44,7 +44,28 @@ class MealController {
     fun findAllFood(@RequestParam("roomId") roomId: String): ResultBean<MealListBean> {
         return ResultBean(SUCCEED, null, MealListBean(mealService.findAllBeanByRoomId(roomId)))
     }
+    @RequestMapping("/meal/refresh",
+            params = ["id", "name", "content", "price", "address", "imageUrl", "roomId"]
+            , method = [RequestMethod.POST])
+    fun refreshFood(@RequestParam("id") id: Int,
+                    @RequestParam("name") name: String,
+                    @RequestParam("content") content: String,
+                    @RequestParam("price") price: Int = 0,
+                    @RequestParam("address") address: String? = null,
+                    @RequestParam("imageUrl") imageUrl: String?,
+                    @RequestParam("roomId") roomId: Int): ResultModel? {
+        val food = MealBean(name, content
+                , price, imageUrl, address, roomId)
+        food.id = id
+        return mealService?.refreshFood(food, id)
+    }
 
+
+    @RequestMapping("/meal/del",
+            params = ["id"], method = [RequestMethod.POST])
+    fun delFood(@RequestParam("id") id: Int): ResultModel? {
+        return mealService?.deleteFood(id)
+    }
 
     @RequestMapping(method = [RequestMethod.POST], value = ["/meal/all"])
     fun findAllFood(): ResultBean<MealListBean> {

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MealDao : JpaRepository<MealBean, String> {
     fun findByName(name: String): List<MealBean>?
+    fun findById(id: Int): MealBean?
 }

@@ -1,6 +1,7 @@
 package com.example.demo.xxxx.meal.service
 
 import com.example.demo.xxxx.bean.ResultBean
+import com.example.demo.xxxx.bean.ResultModel
 import com.example.demo.xxxx.meal.bean.MealBean
 
 interface MealService {
@@ -11,4 +12,6 @@ interface MealService {
     fun findAllBeanByRoomId(roomId: String): List<MealBean>?
 
     fun findByName(name: String): List<*>?
+    fun deleteFood(id: Int): ResultModel?
+    fun refreshFood(food: MealBean,id: Int): ResultModel?
 }

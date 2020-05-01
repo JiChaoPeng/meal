@@ -2,6 +2,7 @@ package com.example.demo.xxxx.meal.service.impl
 
 
 import com.example.demo.xxxx.bean.ResultBean
+import com.example.demo.xxxx.bean.ResultModel
 import com.example.demo.xxxx.meal.bean.MealBean
 import com.example.demo.xxxx.meal.dao.MealDao
 import com.example.demo.xxxx.meal.service.MealService
@@ -33,7 +34,30 @@ class MealServiceImpl : MealService {
         }
 
     }
-
+    override fun deleteFood(id: Int): ResultModel? {
+        val findById = mealDao.findById(id)
+        return if (findById != null) {
+            mealDao.delete(findById)
+            ResultModel(SUCCEED, null)
+        } else {
+            ResultModel(ERROR, null)
+        }
+    }
+    override fun refreshFood(food: MealBean, id: Int): ResultModel? {
+        val findById = mealDao.findById(id)
+        return if (findById != null) {
+            findById.content = food.content
+            findById.image_url = food.image_url
+            findById.name = food.name
+            findById.address = food.address
+            findById.price = food.price
+            findById.room_id = food.room_id
+            mealDao.save(findById)
+            ResultModel(SUCCEED, null)
+        } else {
+            ResultModel(ERROR, null)
+        }
+    }
     override fun findAllBean(): List<MealBean>? {
         return mealDao.findAll()
     }
