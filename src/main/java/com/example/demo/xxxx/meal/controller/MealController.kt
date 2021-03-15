@@ -98,7 +98,7 @@ class MealController {
 
         }
 
-        val filename = "http://39.99.210.2/pic/meal/$fileName"
+        val filename = "http://39.103.156.244/pic/meal/$fileName"
         return ResultModel(SUCCEED, filename)
     }
 

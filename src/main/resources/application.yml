@@ -3,7 +3,7 @@ spring:
     active: a
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.99.210.2:3306/meal_app
+    url: jdbc:mysql://39.103.156.244:3306/meal_app
     username: root
     password: 123456
 
